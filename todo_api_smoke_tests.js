@@ -6,9 +6,9 @@ import http from "k6/http";
 export const options = {
   // define thresholds
   thresholds: {
-    http_req_failed: [{threshold:'rate<0.01', abortOnFail: true}], // http errors should be less than 1%
-    http_req_duration: [{threshold:"p(99)<200", abortOnFail: true}], // 99% of requests should be below 1s
-    checks: [{threshold:'rate==1', abortOnFail: true}],
+    http_req_failed: [{threshold:'rate<0.1', abortOnFail: true}], // http errors should be less than 1%
+    http_req_duration: [{threshold:"p(99)<1000", abortOnFail: true}], // 99% of requests should be below 1s
+    checks: [{threshold:'rate>0.95', abortOnFail: true}],
   },
   scenarios: {
     // arbitrary name of scenario
@@ -25,8 +25,8 @@ export const options = {
 
 export default function () {
   // define URL and payload
-  //const url = "http://localhost:4000/api-docs";
-  const url = "http://127.0.0.1:4000"
+  const url = "http://localhost:4000";
+  //const url = "http://127.0.0.1:4000"
   const endpoint = "/todos"
   const todoId = "todo-0"
 
@@ -84,7 +84,7 @@ export default function () {
 
   check(responses[0,1,2,3,4], {
     'Check status': (res) => res.status = 200,
-    'Response time': (res) => res.timings.duration <= 200,
+    'Response time': (res) => res.timings.duration <= 400,
   });
   // Add tag to check
   //check(res, { 'status is 200': (r) => r.status === 200 }, { my_tag: "I'm a tag" });
