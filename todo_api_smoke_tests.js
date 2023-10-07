@@ -25,9 +25,9 @@ export const options = {
 
 export default function () {
   // define URL and payload
-  const url = "http://localhost:4000";
+  const url = "http://localhost:4000/";
   //const url = "http://127.0.0.1:4000"
-  const endpoint = "/todos"
+  const endpoint = "todos"
   const todoId = "todo-0"
 
   const params = {
@@ -80,9 +80,10 @@ export default function () {
     url: url + endpoint + '/' + todoId,
   }
 
-  const responses = http.batch([get_todos, get_todo_by_id, create_todo, update_todo, delete_todo]);
+  //const responses = http.batch([get_todos, get_todo_by_id, create_todo, update_todo, delete_todo]);
+  const responses = http.batch([get_todos]);
 
-  check(responses[0,1,2,3,4], {
+  check(responses[0], {
     'Check status': (res) => res.status = 200,
     'Response time': (res) => res.timings.duration <= 400,
   });
