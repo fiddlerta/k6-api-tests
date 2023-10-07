@@ -26,7 +26,7 @@ export const options = {
 export default function () {
   // define URL and payload
   //const url = "http://localhost:4000/api-docs";
-  const url = "127.0.0.1:4000/api-docs"
+  const url = "http://127.0.0.1:4000/api-docs"
   const endpoint = "/todos"
   const todoId = "todo-0"
 
