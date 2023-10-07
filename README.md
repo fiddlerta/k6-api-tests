@@ -3,13 +3,13 @@
 
 `k6 documentation`
 - GET, POST, PUT, DELETE
-https://k6.io/docs/javascript-api/k6-http/post/
-https://k6.io/docs/javascript-api/k6-http/get/
-https://k6.io/docs/javascript-api/k6-http/del/
-https://k6.io/docs/javascript-api/k6-http/put/
+https://k6.io/docs/javascript-api/k6-http/post/;
+https://k6.io/docs/javascript-api/k6-http/get/;
+https://k6.io/docs/javascript-api/k6-http/del/;
+https://k6.io/docs/javascript-api/k6-http/put/;
 - Response structure
-https://k6.io/docs/javascript-api/k6-http/response/
+https://k6.io/docs/javascript-api/k6-http/response/;
 - Test lifecycle
-https://k6.io/docs/using-k6/test-lifecycle/
+https://k6.io/docs/using-k6/test-lifecycle/;
 - How to call batch of requests at once 
-https://k6.io/docs/javascript-api/k6-http/batch/
+https://k6.io/docs/javascript-api/k6-http/batch/;
