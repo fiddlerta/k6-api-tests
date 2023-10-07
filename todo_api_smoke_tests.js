@@ -2,14 +2,13 @@
 import { check } from "k6";
 import http from "k6/http";
 
-// TODO: beforeEach() restore db to initial state 
-
 // define configuration
 export const options = {
   // define thresholds
   thresholds: {
     http_req_failed: [{threshold:'rate<0.01', abortOnFail: true}], // http errors should be less than 1%
-    http_req_duration: [{threshold:"p(99)<1000", abortOnFail: true}], // 99% of requests should be below 1s
+    http_req_duration: [{threshold:"p(99)<200", abortOnFail: true}], // 99% of requests should be below 1s
+    checks: [{threshold:'rate==1', abortOnFail: true}],
   },
   scenarios: {
     // arbitrary name of scenario
@@ -17,7 +16,7 @@ export const options = {
       executor: "ramping-vus",
       stages: [
         // ramp up to average load of 10 virtual users
-        { duration: "2s", target: 2 },
+        { duration: "2s", target: 10 },
         
       ],
     },
@@ -28,7 +27,7 @@ export default function () {
   // define URL and payload
   const url = "http://localhost:4000/api-docs";
   const endpoint = "/todos"
-  const todoId = "0"
+  const todoId = "todo-0"
 
   const params = {
     headers: {
@@ -80,6 +79,12 @@ export default function () {
     url: url + endpoint + '/' + todoId,
   }
 
+  const responses = http.batch([get_todos, get_todo_by_id, create_todo, update_todo, delete_todo]);
+
+  check(responses[0,1,2,3,4], {
+    'Check status': (res) => res.status = 200,
+    'Response time': (res) => res.timings.duration <= 200,
+  });
   // Add tag to check
   //check(res, { 'status is 200': (r) => r.status === 200 }, { my_tag: "I'm a tag" });
 }
