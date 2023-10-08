@@ -83,7 +83,7 @@ export default function () {
   //const responses = http.batch([get_todos, get_todo_by_id, create_todo, update_todo, delete_todo]);
   //const responses = http.batch([get_todos]);
 
-  const req = http.get("http://127.0.0.1:4000/todos")
+  const req = http.get("http://localhost:4000/api-docs")
 
 
 
