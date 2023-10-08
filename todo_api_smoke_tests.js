@@ -81,9 +81,13 @@ export default function () {
   }
 
   //const responses = http.batch([get_todos, get_todo_by_id, create_todo, update_todo, delete_todo]);
-  const responses = http.batch([get_todos]);
+  //const responses = http.batch([get_todos]);
 
-  check(responses[0], {
+  const req = http.get("http://127.0.0.1:4000/todos")
+
+
+
+  check(req, {
     'Check status': (res) => res.status = 200,
     'Response time': (res) => res.timings.duration <= 400,
   });
